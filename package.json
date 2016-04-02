@@ -1,0 +1,18 @@
+{
+  "name": "nano-discord",
+  "version": "1.0.0",
+  "description": "Nano for Discord",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index"
+  },
+  "author": "kurisubrooks",
+  "dependencies": {
+    "crimson": "^0.0.2",
+    "discord.io": "^1.8.6",
+    "lodash": "^4.7.0",
+    "qs": "^6.1.0",
+    "request": "^2.69.0",
+    "socket.io-client": "^1.4.5"
+  }
+}
