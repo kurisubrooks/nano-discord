@@ -55,12 +55,15 @@
         "shrug": "\\\\\\_(ツ)_/¯",
         "kawaii": "(ﾉ◕ヮ◕)ﾉ*:・ﾟ✧",
         "flip": "(╯°□°）╯︵ ┻━┻)",
-        "lenny": "( ͡° ͜ʖ ͡°)",
-        "nbc": ":stars: **NBC**\n_the more you know_",
-        "close": "You were so close...",
-        "cuic": "SEE YOU IN COURT!"
+        "lenny": "( ͡° ͜ʖ ͡°)"
     },
     "commands": [
+        {
+            "command": "help",
+            "aias": [],
+            "desc": "Displays the help prompt",
+            "args": [[]]
+        },
         {
             "command": "translate",
             "alias": ["t"],
@@ -87,6 +90,7 @@
         },
         {
             "command": "exit",
+            "hidden": true,
             "alias": ["gtfo", "fuckoff"],
             "desc": "Rips out the power cord",
             "args": [[]]
