@@ -1,25 +1,26 @@
 {
     "sign": "!",
     "debug": false,
-    "masters": ["Kurisu"],
+    "masters": ["132368482120499201"],
     "subprocesses": [
         "quake"
     ],
     "gifs": {
-        "facepalm": "https://media.giphy.com/media/8BYLSNmnJYQxy/giphy.gif",
-        "pantsu": "https://media.giphy.com/media/79kGG4pjwlFh6/giphy.gif",
-        "no": "https://media0.giphy.com/media/XMl7bkguaL4PK/200.gif",
+        "facepalm": "https://i.imgur.com/sQaXegJ.gif",
+        "pantsu": "https://i.imgur.com/L7gShKR.gif",
+        "no": "https://i.imgur.com/v1kFHU7.gif",
+        "nono": "https://i.imgur.com/Zlbnllh.gif",
         "crash": "https://i.imgur.com/kiKRmYY.gif",
         "joke": "https://i.imgur.com/v4NsQhC.gif",
-        "baka": "https://media.giphy.com/media/bOCMPVgsVnRT2/giphy.gif",
+        "baka": "https://i.imgur.com/sK1gLoR.gif",
         "idiot": "https://i.imgur.com/XUbzeIA.gif",
         "wat": "https://i.imgur.com/QB9lziN.gif",
         "cri": "https://i.imgur.com/ZVeCD53.gif",
         "clap": "https://i.imgur.com/cxPP56N.gif",
         "sleep": "https://i.imgur.com/NP0JjB0.gif",
-        "deal": "https://media.giphy.com/media/cQwaKZ3oNqptm/giphy.gif",
-        "wow": "https://media.giphy.com/media/NibwQB5CcltuM/giphy.gif",
-        "soon": "https://1.bp.blogspot.com/-yRKdiyePiCI/U7Lp4r1J9VI/AAAAAAAABdU/zKIdHlpfODU/s1600/soon+cat.gif",
+        "deal": "https://i.imgur.com/xABY3l2.gif",
+        "wow": "https://i.imgur.com/AsnXEu3.gif",
+        "soon": "https://i.imgur.com/iT5DloE.gif",
         "fuck": "https://i.imgur.com/HIDfKjd.gif",
         "rekt": "https://i.imgur.com/z5FzTCb.gif",
         "rin": "https://i.imgur.com/ElmaNHm.gif",
@@ -28,46 +29,57 @@
         "easy": "https://i.imgur.com/bEllCUv.gif",
         "gj": "https://i.imgur.com/x8dlKT1.gif",
         "daisuki": "https://i.imgur.com/H3KKlHc.gif",
-        "court": "https://31.media.tumblr.com/ce3a5d35909187e834cad4abc6a3d130/tumblr_inline_nw7lp6X2Ut1qafrh6_500.gif",
-        "me": "https://49.media.tumblr.com/32c265e66bff555c4e1f8699f030912f/tumblr_ndk236rgo81rn5wi5o4_500.gif",
-        "idc": "http://wp.patheos.com.s3.amazonaws.com/blogs/thecrescat/files/2013/09/I-won-t-hear-it-and-I-won-t-respond-to-it-animated-gif-arrested-development-31133206-500-235.gif",
-        "both": "https://33.media.tumblr.com/0ae4a458b02b1705c96dd846493e2aad/tumblr_inline_n3ghj9J3u91qcklud.gif",
-        "ugh": "https://media0.giphy.com/media/gVoQge4JXndPq/giphy.gif",
-        "facedesk": "http://vignette4.wikia.nocookie.net/r2da/images/0/07/Facedesk.gif",
+        "court": "https://i.imgur.com/OPWUBSF.gif",
+        "both": "https://i.imgur.com/HIbC3g2.gif",
+        "ugh": "https://i.imgur.com/pvLjHJh.gif",
+        "facedesk": "https://i.imgur.com/mpUiwty.gif",
         "omedetou": "https://i.imgur.com/nTPMCMb.gif",
-        "yokudekimashita": "http://i.imgur.com/ThN5gyr.gif",
-        "nya": "http://i.giphy.com/l2R05KYbshk04bJAI.gif",
-        "disgust": "https://media.giphy.com/media/uA7iGzhqHGVtS/giphy.gif",
-        "rekt2": "https://cdn.discordapp.com/attachments/132368736119291904/165653735362658305/giphy.gif",
-        "hungry": "https://media.giphy.com/media/1nfBnMCNoZOWQ/giphy.gif",
-        "cry": "https://media.giphy.com/media/oAW9QPkQwJqJq/giphy.gif",
+        "yokudekimashita": "https://i.imgur.com/ThN5gyr.gif",
+        "nya": "https://i.imgur.com/oSWn2ab.gif",
+        "disgust": "https://i.imgur.com/VjbVHnR.gif",
+        "rekt2": "https://i.imgur.com/ITkviz6.gif",
+        "hungry": "https://i.imgur.com/tUv5wIF.gif",
+        "cry": "https://i.imgur.com/dB48bUl.gif",
         "nosebleed": "https://i.imgur.com/CBceC6Q.gif",
         "faggot": "https://i.imgur.com/rYOuM0V.gif",
         "sugoi": "https://i.imgur.com/vSjs9X1.gif",
         "sad": "https://i.imgur.com/8mKG45J.gif",
         "hehehe": "https://i.imgur.com/hxiIail.gif",
         "omg": "https://i.imgur.com/NruwA2a.gif",
-        "weed": "https://i.4cdn.org/v/1459142341927.gif",
-        "magic": "https://media.giphy.com/media/7xp6u50T0Dula/giphy.gif",
-        "murica": "http://i.imgur.com/h0IHHWQ.gif"
+        "magic": "https://i.imgur.com/vrLFNgA.gif",
+        "murica": "https://i.imgur.com/h0IHHWQ.gif",
+        "banned": "https://i.imgur.com/O3DHIA5.gif",
+        "makise": "https://i.imgur.com/evawarp.gif",
+        "eee": "https://i.imgur.com/s79Fr1Z.jpg",
+        "triggered": "https://i.imgur.com/MwBrt7g.jpg",
+        "gotcha": "https://i.imgur.com/pP4X6uz.gif",
+        "dying": "https://i.imgur.com/88alCjs.gif",
+        "wtf": "https://i.imgur.com/FbG04dS.gif"
     },
     "reacts": {
-        "shrug": "\\\\\\_(ツ)_/¯",
+        "shrug": "¯\\_(ツ)_/¯",
         "kawaii": "(ﾉ◕ヮ◕)ﾉ*:・ﾟ✧",
         "flip": "(╯°□°）╯︵ ┻━┻)",
-        "lenny": "( ͡° ͜ʖ ͡°)"
+        "lenny": "( ͡° ͜ʖ ͡°)",
+        "nbc": ":stars: *NBC*\n_the more you know_",
+        "close": "So.. so close...",
+        "magic": ":magic:",
+        "cuic": "SEE YOU IN COURT!",
+        "test": "Test Received.",
+        "ruok": "I'm never ok.",
+        "welcome": "Welcome to our Discord Server! All members must be sorted into their Hogwarts Houses. To be sorted, please visit this link: https://my.pottermore.com/sorting-hat\nPlease screenshot the result to be assigned your role!"
     },
     "commands": [
         {
             "command": "help",
-            "aias": [],
+            "alias": ["h", "halp", "tasukete"],
             "desc": "Displays the help prompt",
-            "args": [[]]
+            "args": []
         },
         {
             "command": "translate",
             "alias": ["t"],
-            "desc": "Translate text with Google Translate",
+            "desc": "Translates Query to Given Language",
             "args": []
         },
         {
@@ -85,14 +97,20 @@
         {
             "command": "search",
             "alias": ["s"],
-            "desc": "Search The Web",
+            "desc": "Search the Web",
+            "args": []
+        },
+        {
+            "command": "just",
+            "alias": ["j"],
+            "desc": "#JustBlankThings",
             "args": []
         },
         {
             "command": "exit",
-            "hidden": true,
+            "admin": true,
             "alias": ["gtfo", "fuckoff"],
-            "desc": "Rips out the power cord",
+            "desc": "Unplugs the Power",
             "args": [[]]
         }
     ]

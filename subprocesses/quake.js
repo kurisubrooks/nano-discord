@@ -1,69 +1,112 @@
-const _ = require("lodash");
 const path = require("path");
-const crimson = require("crimson");
+const Crimson = require("crimson");
+const crimson = new Crimson({});
 
-var latestID = {};
-var latestQuake = "";
+last_ts = "";
+last_quake = "";
 
-// kurisubrooks#general
-var c_general = '132368736119291904';
+exports.main = (bot, config, dir) => {
+    const core = require(path.join(dir, "core.js"));
+    const keychain = require(path.join(dir, "keychain.js"));
+    const socket = require("socket.io-client")(keychain.shake);
 
-exports.main = (discord, config, botdir) => {
-    const core = require(path.join(botdir, "core.js"));
-    const keychain = require(path.join(botdir, "keychain.js"));
-    const shake = require("socket.io-client")(keychain.shake);
+    var general = "132368736119291904"; // #general
+    var debug   = "164807725966950400"; // #code
 
-    function debug(text) {
-        discord.sendMessage({ to: '164807725966950400', message: text });
+    function posdebug(text, type) {
+        setTimeout(function() {
+            if (type === "e") {
+                bot.sendMessage({
+                    to: debug,
+                    message: core.error("quake", text)
+                });
+            } else {
+                bot.sendMessage({
+                    to: debug,
+                    message: text
+                });
+            }
+        }, 1250);
     }
 
-    shake.on("connect", () => {
-        crimson.success("Connected to Shake.");
-        debug("**【 √ 】** Connected to Shake.");
+    socket.on("connect", () => socket.emit("open", { version: 2 }));
+    socket.on("message", (data) => posdebug("API Message:\n" + JSON.stringify(data)), "e");
+
+    socket.on("auth", (data) => {
+        if (data.ok) {
+            crimson.success("Shake > Connected");
+            posdebug("【:ok_hand:】**Connected to Shake**");
+        } else {
+            posdebug("API Connection Refused:\n" + data.message, "e");
+            crimson.fatal("Shake Connection Refused: " + data.message);
+        }
     });
 
-    shake.on("data", data => run(data)); 
-
-    shake.on("reconnect", () => {
-        crimson.warn("Connection to Shake was lost, reconnecting...");
-        debug("**【 ! 】** Connection to Shake was lost, reconnecting...");
+    socket.on("quake.eew", (data) => eew(data));
+    socket.on("reconnect", () => crimson.warn("Shake > Reconnecting"));
+    socket.on("disconnect", () => {
+        crimson.error("Shake > Connection Lost");
+        posdebug("【:warning:】**Disconnected from Shake**");
     });
 
-    shake.on("disconnect", () => {
-        crimson.error("Connection to Shake was lost!");
-        debug("**【 ! 】** Connection to Shake was lost!");
-    });
+    function eew(data) {
+        var update;
+        var title_template;
+        var msg_template;
+            data = (typeof data === "object") ? data : JSON.parse(data);
 
-    function run(data) {
-        data = JSON.parse(data);
-        var update = "";
+        // Title Template
+        if (data.alarm) {
+            // やばい
+            title_template = "【:bell:】**Emergency Earthquake Warning**";
+            msg_template = `【:point_right:】**${data.details.epicenter.en}**\n【:point_right:】**Magnitude:** ${data.details.magnitude}, **Max. Seismic:** ${data.details.seismic.en}, **Depth:** ${data.details.geography.depth}km\n【:point_right:】@everyone`;
+        }  else if (data.situation === 2) {
+            // キャンセル
+            title_template = "【:no_bell:】**Earthquake Warning Cancelled**";
+            msg_template = `【:point_right:】This warning has been cancelled.`;
+        } else {
+            // ノーマル
+            title_template = "【:loudspeaker:】**Earthquake Information**";
+            msg_template = `【:point_right:】**${data.details.epicenter.en}**\n【:point_right:】**Magnitude:** ${data.details.magnitude}, **Max. Seismic:** ${data.details.seismic.en}, **Depth:** ${data.details.geography.depth}km`;
+        }
 
-        if (Number(data.situation) === 1) update = "Final";
-        else if (Number(data.revision) === 1) update = "Epicenter";
-        else update = "#" + (Number(data.revision) - 1);
+        // Map on Final
+        if (data.situation === 1) msg_template += `\n\nhttps://maps.googleapis.com/maps/api/staticmap?center=${data.details.geography.lat},${data.details.geography.long}&zoom=6&size=400x300&format=png&markers=${data.details.geography.lat},${data.details.geography.long}&maptype=roadmap&style=feature:landscape.natural.terrain|hue:0x00ff09|visibility:off&style=feature:transit.line|visibility:off&style=feature:road.highway|visibility:simplified&style=feature:poi|visibility:off&style=feature:administrative.country|visibility:off&style=feature:road|visibility:off`;
 
-        var message = `**【！】Earthquake Early Warning【 ${update} 】**\n　ー　${data.epicenter_en}\n　ー　Magnitude: ${data.magnitude}, Seismic: ${data.seismic_en}, Depth: ${data.depth}`;
-        if (Number(data.situation) === 1) message += "\nhttps://maps.googleapis.com/maps/api/staticmap?center=" + data.latitude + "," + data.longitude + "&zoom=6&size=350x250&markers=" + data.latitude + "," + data.longitude + "&style=feature:road|visibility:off";
+        // Updates
+        if (data.situation === 1) {
+            update = "Final";
+        } else if (data.situation === 2) {
+            update = "Cancelled";
+        } else {
+            update = "#" + data.revision;
+        }
 
-        if (latestQuake !== data.earthquake_id) {
-            latestQuake = data.earthquake_id;
+        if (last_quake != data.id) {
+            last_quake = data.id;
 
-            discord.sendMessage({
-                to: c_general,
-                message: message
+            bot.sendMessage({
+                to: general,
+                message: `${title_template} 〈${update}〉\n${msg_template}`
             }, (err, res) => {
-                if (!err) latestID[c_general] = res.id;
+                console.log(err);
+                console.log(res);
+                if (err) posdebug(err, "e");
+                if (!err) last_ts = res.id;
             });
         } else {
-            _.each(latestID, (messageID, channel) => 
-                discord.editMessage({
-                    channel: c_general,
-                    messageID: messageID,
-                    message: message
+            setTimeout(function() {
+                bot.editMessage({
+                    to: general,
+                    messageID: last_ts,
+                    message: `${title_template} 〈${update}〉\n${msg_template}`
                 }, (err, res) => {
-                    if (!err) latestID[c_general] = res.id;
-                })
-            );
+                    console.log(err);
+                    console.log(res);
+                    if (err) posdebug(err, "e");
+                    if (!err) last_ts = res.id;
+                });
+            }, 100);
         }
     }
 };

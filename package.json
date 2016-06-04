@@ -8,11 +8,14 @@
   },
   "author": "kurisubrooks",
   "dependencies": {
-    "crimson": "^0.0.2",
-    "discord.io": "^1.8.6",
-    "lodash": "^4.7.0",
-    "qs": "^6.1.0",
-    "request": "^2.69.0",
-    "socket.io-client": "^1.4.5"
+    "crimson": "^1.0.0",
+    "discord.io": "^1.11.1",
+    "hepburn": "^1.0.0",
+    "lodash": "^4.13.1",
+    "moment": "^2.13.0",
+    "qs": "^6.2.0",
+    "request": "^2.72.0",
+    "socket.io-client": "^1.4.6",
+    "xml2js": "^0.4.16"
   }
 }

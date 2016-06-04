@@ -1,18 +1,19 @@
-const path = require('path');
+const path = require("path");
 const core = require(path.join(__dirname, "../", "core.js"));
 
-exports.main = (discord, channel, user, args, messageID, config) => {
-    if (config.masters.indexOf(user) >= 0) {
-        discord.sendMessage({
+exports.main = (bot, channel, user, args, id, options) => {
+    if (options.masters.indexOf(options.trigger.id) >= 0) {
+        bot.sendMessage({
             to: channel,
-            message: "Restarting\nhttp://i.imgur.com/kiKRmYY.gif"
-        }, () => {
-            core.delMsg(discord, channel, messageID);
-            setTimeout(() => process.exit(0), 2000);
+            message: "Be right back!\nhttp://i.imgur.com/kiKRmYY.gif"
+        }, function() {
+            core.delMsg(bot, channel, id);
+            setTimeout(() => process.exit(0), 1000);
+        });
+    } else {
+        bot.sendMessage({
+            to: channel,
+            message: core.error("exit", "Insufficient Permissions")
         });
     }
-    else discord.sendMessage({
-        to: channel,
-        message: 'Only senpai can control me!'
-    });
 };
