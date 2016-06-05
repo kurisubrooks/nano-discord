@@ -4,7 +4,8 @@
     "masters": ["132368482120499201"],
     "subprocesses": [
         "quake",
-        "fire"
+        "fire",
+        "bom"
     ],
     "gifs": {
         "facepalm": "https://i.imgur.com/sQaXegJ.gif",
