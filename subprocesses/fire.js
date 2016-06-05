@@ -47,7 +47,7 @@ exports.main = (bot, config, botdir) => {
 
                         bot.sendMessage({
                             to: channel,
-                            message: `【:fire:】**NSW RFS Alert**\n【:point_right:】**${response.rss.channel[0].item[i].title[0]}**\n【:point_right:】${response.rss.channel[0].item[i].description[0]}`
+                            message: `【:fire:】**NSW Rural Fire Service Alert**\n【:point_right:】**${response.rss.channel[0].item[i].title[0]}**\n【:point_right:】${response.rss.channel[0].item[i].description[0]}`
                         });
                     }
                 });
