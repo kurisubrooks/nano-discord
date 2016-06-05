@@ -3,7 +3,8 @@
     "debug": false,
     "masters": ["132368482120499201"],
     "subprocesses": [
-        "quake"
+        "quake",
+        "fire"
     ],
     "gifs": {
         "facepalm": "https://i.imgur.com/sQaXegJ.gif",
