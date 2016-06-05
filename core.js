@@ -19,7 +19,7 @@ exports.delMsg = function(bot, channel, id) {
 };
 
 exports.error = function(module, message) {
-    return "**Error:** An error was thrown from " + module + ".js\n```" + message.toString() + "```";
+    return "**Error:** An error was thrown from " + module + ".js\n\n```" + message.toString() + "```";
 };
 
 String.prototype.toUpperLowerCase = function() {
