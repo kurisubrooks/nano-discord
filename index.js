@@ -52,9 +52,17 @@ _.each(config.subprocesses, (v) => {
     }
 });
 
+var servers = {};
+
+function fixServer(channel) {
+    return servers[bot.serverFromChannel(channel)].name;
+}
+
 // Initialise Discord
 bot.on("ready", function() {
     crimson.success(bot.username + " connected to Discord");
+    servers = bot.servers;
+
     /*setTimeout(function() {
         console.log(bot.inviteURL);
     }, 2500);*/
@@ -63,15 +71,9 @@ bot.on("ready", function() {
 bot.on("disconnect", bot.connect);
 
 bot.on("message", function(user, userID, channelID, text, event) {
-    /*console.log(user, userID, channelID, text);
-    console.log(event);*/
-    if (bot.id == userID) {
-        crimson.info(user + ": [result]");
-        return;
-    }
+    crimson.info("[" + fixServer(channelID) + "]<" + user + ">: " + bot.fixMessage(text));
 
-    crimson.info(user + ": " + bot.fixMessage(text));
-
+    if (bot.id == userID) return;
     if (text.startsWith(config.sign)) {
         var args = text.split(" ");
         var command = args.splice(0, 1)[0].toLowerCase();
