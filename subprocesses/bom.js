@@ -10,7 +10,7 @@ exports.main = (bot, config, botdir) => {
     const core = require(path.join(botdir, "core.js"));
     const url = "http://www.bom.gov.au/fwo/IDZ00054.warnings_nsw.xml";
     const channel = "188512903513505792"; // kaori-#notices
-    const interval = 120000; // 5 minutes
+    const interval = 300000; // 2 minutes
 
     function posdebug(text, type) {
         setTimeout(function() {
@@ -42,13 +42,20 @@ exports.main = (bot, config, botdir) => {
                     if (cache.length === 0) cache = response;
 
                     for (i = 0; i < response.rss.channel[0].item.length; i++) {
-                        if (cache.rss.channel[0].item[i].title[0]._ === response.rss.channel[0].item[i].title[0]._) return;
-                        cache = response;
+                        /*console.log("triggered");
+                        console.log(cache.rss.channel[0].item[i].guid[0]._);
+                        console.log(response.rss.channel[0].item[i].guid[0]._ + "\n");*/
 
-                        bot.sendMessage({
-                            to: channel,
-                            message: `【:cloud_lightning:】**NSW Bureau of Meteorology Alert**\n【:point_right:】**${response.rss.channel[0].item[i].title[0]}**\n【:point_right:】Information: ${response.rss.channel[0].item[i].link[0]}`
-                        });
+                        if (cache.rss.channel[0].item[i].guid[0]._ === response.rss.channel[0].item[i].guid[0]._) {
+                            // do nothing :upside_down:;
+                        } else {
+                            bot.sendMessage({
+                                to: channel,
+                                message: `【:cloud_lightning:】**NSW Bureau of Meteorology Alert**\n【:point_right:】**${cache.rss.channel[0].item[i].title[0]}**\n【:point_right:】${cache.rss.channel[0].item[i].link[0]}`
+                            });
+                        }
+
+                        cache = response;
                     }
                 });
             }

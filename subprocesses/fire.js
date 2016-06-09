@@ -42,13 +42,20 @@ exports.main = (bot, config, botdir) => {
                     if (cache.length === 0) cache = response;
 
                     for (i = 0; i < response.rss.channel[0].item.length; i++) {
-                        if (cache.rss.channel[0].item[i].guid[0]._ === response.rss.channel[0].item[i].guid[0]._) return;
-                        cache = response;
+                        /*console.log("triggered");
+                        console.log(cache.rss.channel[0].item[i].guid[0]._);
+                        console.log(response.rss.channel[0].item[i].guid[0]._ + "\n");*/
 
-                        bot.sendMessage({
-                            to: channel,
-                            message: `【:fire:】**NSW Rural Fire Service Alert**\n【:point_right:】**${response.rss.channel[0].item[i].title[0]}**\n【:point_right:】${response.rss.channel[0].item[i].description[0]}`
-                        });
+                        if (cache.rss.channel[0].item[i].guid[0]._ === response.rss.channel[0].item[i].guid[0]._) {
+                            // do nothing :upside_down:;
+                        } else {
+                            bot.sendMessage({
+                                to: channel,
+                                message: `【:fire:】**NSW Rural Fire Service Alert**\n【:point_right:】**${response.rss.channel[0].item[i].title[0]}**\n【:point_right:】${response.rss.channel[0].item[i].description[0]}`
+                            });
+                        }
+
+                        cache = response;
                     }
                 });
             }
