@@ -7,25 +7,27 @@ exports.main = (bot, channel, user, args, id, options) => {
     var commands = "**Commands:**\n";
     var reacts = "**Reactions:**\n";
     var gifs = "**GIFs:**\n";
+    var stickers = "**Stickers:**\n";
 
     _.forEach(_.sortBy(config.commands, "command"), (value) => {
-    //_.forEach(config.commands, (value) => {
         if (value.admin && options.masters.indexOf(options.trigger.id) > -1) commands += `\`!${value.command}\`: ${value.desc} **[ADMIN]**\n`;
         else if (!value.admin) commands += `\`!${value.command}\`: ${value.desc}\n`;
     });
 
-    //_.forEach(_.sortBy(config.reacts), (value, key) => {
     _.forEach(config.reacts, (value, key) => {
         reacts += `\`!${key}\` `;
     });
 
-    //_.forEach(_.sortBy(config.gifs), (value, key) => {
     _.forEach(config.gifs, (value, key) => {
         gifs += `\`!${key}\` `;
     });
 
+    _.forEach(config.stickers, (value, key) => {
+        stickers += `\`!${key}\` `;
+    });
+
     bot.sendMessage({
         to: channel,
-        message: commands + "\n" + reacts + "\n\n" + gifs
+        message: commands + "\n" + reacts + "\n\n" + gifs + "\n\n" + stickers
     }, core.delMsg(bot, channel, id));
 };
