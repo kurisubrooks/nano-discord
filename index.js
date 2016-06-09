@@ -55,13 +55,20 @@ _.each(config.subprocesses, (v) => {
 var servers = {};
 
 function fixServer(channel) {
-    return servers[bot.serverFromChannel(channel)].name;
+    var id = bot.serverFromChannel(channel);
+    if (typeof id !== "undefined") return servers[id].name;
+    else return "DM";
 }
 
 // Initialise Discord
 bot.on("ready", function() {
     crimson.success(bot.username + " connected to Discord");
     servers = bot.servers;
+
+    bot.setPresence({
+        game: "with 魔法",
+        type: 0
+    }, crimson.debug("Presence Set"));
 
     /*setTimeout(function() {
         console.log(bot.inviteURL);
@@ -117,11 +124,11 @@ bot.on("message", function(user, userID, channelID, text, event) {
         }
     }
 
-    var reactOrGifMatched = false;
+    var partMatch = false;
 
     // For-each every part of the text.
     _.each(text.split(" "), (part) => {
-        if (reactOrGifMatched) return false;
+        if (partMatch) return false;
         if (part.startsWith(config.sign)) part = part.slice(config.sign.length).toLowerCase();
         else return;
 
@@ -133,7 +140,7 @@ bot.on("message", function(user, userID, channelID, text, event) {
             });
 
             if (text === config.sign + part) core.delMsg(bot, channelID, event.d.id);
-            reactOrGifMatched = true;
+            partMatch = true;
         }
 
         // GIF Reactions
@@ -144,7 +151,20 @@ bot.on("message", function(user, userID, channelID, text, event) {
             });
 
             if (text === config.sign + part) core.delMsg(bot, channelID, event.d.id);
-            reactOrGifMatched = true;
+            partMatch = true;
+        }
+
+        // Stickers
+        else if (typeof config.stickers[part] === "string") {
+            bot.uploadFile({
+                to: channelID,
+                file: "./stickers/sml/" + config.stickers[part] + ".png",
+                filename: "sticker.png",
+                message: user + ":"
+            });
+
+            if (text === config.sign + part) core.delMsg(bot, channelID, event.d.id);
+            partMatch = true;
         }
     });
 });
