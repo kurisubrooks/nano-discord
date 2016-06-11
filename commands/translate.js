@@ -8,6 +8,62 @@ const xmlp = new xml.Parser();
 const qs = require("qs");
 const _ = require("lodash");
 
+var langs = {
+    //"af": "Afrikaans",
+    //"ar": "Arabic",
+    //"bg": "Bulgarian",
+    //"cs": "Czech",
+    //"da": "Danish",
+    "de": "German",
+    //"el": "Greek",
+    "en": "English",
+    "es": "Spanish",
+    //"fa": "Persian",
+    "fi": "Finnish",
+    //"fj": "Fijian",
+    "fr": "French",
+    //"he": "Hebrew",
+    //"hi": "Hindi",
+    //"hr": "Croatian",
+    //"hu": "Hungarian",
+    //"hy": "Armenian",
+    //"id": "Indonesian",
+    //"is": "Icelandic",
+    "it": "Italian",
+    "ja": "Japanese",
+    //"ka": "Georgian",
+    "ko": "Korean",
+    "la": "Latin",
+    //"lo": "Lao",
+    //"lt": "Lithuanian",
+    //"mi": "Māori",
+    //"mk": "Macedonian",
+    "ms": "Malay",
+    "nl": "Dutch",
+    "no": "Norwegian",
+    //"pa": "Punjabi",
+    "pl": "Polish",
+    "pt": "Portuguese",
+    //"ro": "Romanian",
+    "ru": "Russian",
+    //"sk": "Slovak",
+    //"sm": "Samoan",
+    //"sr": "Serbian",
+    "sv": "Swedish",
+    //"ta": "Tamil",
+    //"th": "Thai",
+    //"tl": "Filipino",
+    //"to": "Tongan",
+    //"tr": "Turkish",
+    //"uk": "Ukranian",
+    //"vi": "Vietnamese",
+    //"cy": "Welsh",
+    "zh": "Chinese (Traditional)",
+    "zh-cn": "Chinese",
+    "zh-tw": "Mandarin (Traditional)"//,
+    //"zu": "Zulu"
+};
+
 function romaji(input, channel) {
     var options = {
         headers: { "User-Agent": "Mozilla/5.0" },
@@ -41,7 +97,7 @@ function romaji(input, channel) {
                             } catch(e) {
                                 send_error(core.error("translate", e));
                             }
-                        } else resolve(["¯\\_(ツ)_/¯"]);
+                        } else resolve(["n/a"]);
 
                         resolve(output);
                     }
@@ -52,20 +108,9 @@ function romaji(input, channel) {
 }
 
 function check_iso(lang) {
-    var langs = {
-        "af": "Afrikaans", "ar": "Arabic", "bg": "Bulgarian", "cs": "Czech", "da": "Danish", "de": "German", "el": "Greek",
-        "en": "English", "es": "Spanish", "fa": "Persian", "fi": "Finnish", "fj": "Fijian", "fr": "French", "he": "Hebrew",
-        "hi": "Hindi", "hr": "Croatian", "hu": "Hungarian", "hy": "Armenian", "id": "Indonesian", "is": "Icelandic",
-        "it": "Italian", "ja": "Japanese", "ka": "Georgian", "ko": "Korean", "la": "Latin", "lo": "Lao", "lt": "Lithuanian",
-        "mi": "Māori", "mk": "Macedonian", "ms": "Malay", "nl": "Dutch", "no": "Norwegian", "pa": "Punjabi", "pl": "Polish",
-        "pt": "Portuguese", "ro": "Romanian", "ru": "Russian", "sk": "Slovak", "sm": "Samoan", "sr": "Serbian", "sv": "Swedish",
-        "ta": "Tamil", "th": "Thai", "tl": "Filipino", "to": "Tongan", "tr": "Turkish", "uk": "Ukranian", "vi": "Vietnamese",
-        "cy": "Welsh", "zh": "Chinese (Traditional)", "zh-cn": "Chinese", "zh-tw": "Chinese (Traditional)", "zu": "Zulu"
-    };
-
     lang = lang.toLowerCase();
     if (lang in langs) return langs[lang];
-    else return lang;
+    else return "Unknown";
 }
 
 exports.main = (bot, channel, user, args, id, options) => {
@@ -73,7 +118,25 @@ exports.main = (bot, channel, user, args, id, options) => {
         bot.sendMessage({
             to: channel,
             message: text
-        }, core.delMsg(bot, channel, id));
+        });
+    }
+
+    if (args[0] == "help") {
+        var results = "";
+        var count = 0;
+
+        _.forEach(langs, (value, key) => {
+            ++count;
+            results += `\`${value}[${key}]\`, `;
+            //if (count == 5 || count == 10 || count == 15 || count == 20 || count == 25) results += "\n";
+        });
+
+        bot.sendMessage({
+            to: channel,
+            message: user + ": \n**Syntax:** " + "`!translate {to[,from]} {query}`\n\n" + "**Languages:** " + results
+        });
+
+        return;
     }
 
     var lang = args[0].split(",");
@@ -110,6 +173,9 @@ exports.main = (bot, channel, user, args, id, options) => {
         } else if (body.startsWith(",", 1)) {
             console.log(body);
             send_error(core.error("translate", "Malformed Response:\n" + body));
+            return;
+        } else if (args[0] == " ") {
+            send_error(core.error("translate", "Unknown Language"));
             return;
         }
 
