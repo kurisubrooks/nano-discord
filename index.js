@@ -81,7 +81,7 @@ bot.on("message", function(user, userID, channelID, text, event) {
     crimson.info("[" + fixServer(channelID) + "]<" + user + ">: " + bot.fixMessage(text));
 
     _.each(config.blacklist, (blacklisted) => {
-        if(text.match(new RegExp(blacklisted.match, blacklisted.mode))) {
+        if (text.match(new RegExp(blacklisted.match, blacklisted.mode))) {
             core.delMsg(bot, channelID, event.d.id);
         }
     });

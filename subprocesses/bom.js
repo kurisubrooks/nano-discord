@@ -38,14 +38,14 @@ exports.main = (bot, config, botdir) => {
                     if (error) posdebug(error, "e");
                     if (response === undefined || res.statusCode !== 200)
                         posdebug("Response:\n" + out + "\n\nStatus Code: " + res.statusCode, "e");
-
                     for (i = 0; i < response.rss.channel[0].item.length; i++) {
                         var uid = response.rss.channel[0].item[i].guid[0]._;
-                        if(cache.indexOf(uid) === -1) {
+                        if (cache.indexOf(uid) === -1) {
                             bot.sendMessage({
                                 to: channel,
                                 message: `【:cloud_lightning:】**NSW Bureau of Meteorology Alert**\n【:point_right:】**${response.rss.channel[0].item[i].title[0]}**\n【:point_right:】${response.rss.channel[0].item[i].link[0]}`
                             });
+
                             cache.push(uid);
                         }
                     }
@@ -53,7 +53,7 @@ exports.main = (bot, config, botdir) => {
             }
         });
     }
-    
+
     check();
     setInterval(check, interval);
 };
