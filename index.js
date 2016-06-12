@@ -80,6 +80,12 @@ bot.on("disconnect", bot.connect);
 bot.on("message", function(user, userID, channelID, text, event) {
     crimson.info("[" + fixServer(channelID) + "]<" + user + ">: " + bot.fixMessage(text));
 
+    _.each(config.blacklist, (blacklisted) => {
+        if(text.match(new RegExp(blacklisted.match, blacklisted.mode))) {
+            core.delMsg(bot, channelID, event.d.id);
+        }
+    });
+
     if (bot.id == userID) return;
     if (text.startsWith(config.sign)) {
         var args = text.split(" ");
