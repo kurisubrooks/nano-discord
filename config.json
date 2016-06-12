@@ -7,6 +7,12 @@
         "fire",
         "bom"
     ],
+    "blacklist": [
+        {
+            "match": "mashable.com",
+            "mode": "g"
+        }
+    ],
     "gifs": {
         "facepalm": "https://i.imgur.com/sQaXegJ.gif",
         "pantsu": "https://i.imgur.com/L7gShKR.gif",
